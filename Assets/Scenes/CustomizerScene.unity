@@ -510,7 +510,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -8, y: 39.5, z: 3}
+  m_LocalPosition: {x: 4, y: 39.5, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1579,7 +1579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60dbd410a8f892438639333cd43af21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustomizationManager
-  jazzBassSetupPrefab: {fileID: 5767738575193922326, guid: adf2a56f76027e14da2960182ef564f9, type: 3}
+  jazzBassSetupPrefab: {fileID: 5079044919864305792, guid: 66a9335e9fdf50341bce1190523fd99f, type: 3}
   precisionBassSetupPrefab: {fileID: 0}
   stratSetupPrefab: {fileID: 0}
   teleSetupPrefab: {fileID: 0}
@@ -1605,6 +1605,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2010029385}
   - component: {fileID: 2010029386}
+  - component: {fileID: 2010029387}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -1628,8 +1629,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00009428116}
-  m_SizeDelta: {x: 0, y: 300}
+  m_AnchoredPosition: {x: 0, y: 0.000876595}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2010029386
 MonoBehaviour:
@@ -1657,6 +1658,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2010029387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010029384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &2115690328
 GameObject:
   m_ObjectHideFlags: 0
