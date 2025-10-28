@@ -38,7 +38,7 @@ MonoBehaviour:
     partPrefab: {fileID: 0}
   - optionName: Yellow
     thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-    materialToApply: {fileID: 2100000, guid: 7a8b54f157c999c43b327358d66fd8dc, type: 2}
+    materialToApply: {fileID: 2100000, guid: e68772f8154cdf746942395e37f12d46, type: 2}
     partPrefab: {fileID: 0}
   - optionName: Burl
     thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
