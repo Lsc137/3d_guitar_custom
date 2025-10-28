@@ -9,6 +9,13 @@ public class GameManager : MonoBehaviour
     // (예: "JazzBass", "Strat")
     public string SelectedGuitarID { get; private set; } 
 
+    public void GoToMainMenu()
+    {
+        // MainMenuScene (빌드 설정 Index 0)을 로드합니다.
+        SceneManager.LoadScene("MainMenuScene");
+        // 또는 SceneManager.LoadScene(0);
+    }
+
     void Awake()
     {
         // --- 싱글톤 패턴 ---

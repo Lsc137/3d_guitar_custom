@@ -30,10 +30,12 @@ public class CustomizationManager : MonoBehaviour
     private Transform fretboardSlot;
     private Transform inlaySlot;
     private Transform pickguardSlot;
+
     // (모델마다 슬롯이 더 필요하면 여기에 private 변수만 추가하고 Start()에서 찾아주세요)
 
 
     // --- 4. [수정] Start 함수 ---
+    [System.Obsolete]
     void Start()
     {
         // GameManager에서 선택한 기타 ID 가져오기
@@ -88,17 +90,23 @@ public class CustomizationManager : MonoBehaviour
             inlaySlot = guitarInstance.transform.Find("Guitar_Root/InlaySlot");
             pickguardSlot = guitarInstance.transform.Find("Guitar_Root/PickguardSlot");
 
-            // [중요] 카메라 뷰어 스크립트에 회전할 대상을 알려줌
-            // (GuitarViewer가 Main Camera에 있다고 가정)
-            var viewer = FindObjectOfType<GuitarViewer>();
+            // ▼▼▼ 핵심 추가/수정 코드 ▼▼▼
+            // 1. 씬에서 GuitarViewer 컴포넌트를 찾습니다.
+            GuitarViewer viewer = FindObjectOfType<GuitarViewer>(); 
             if (viewer != null)
             {
-                viewer.targetGuitar = guitarInstance.transform;
+                // 2. GuitarViewer에게 타겟을 설정하고 초기값을 저장하라고 명령합니다.
+                viewer.SetTargetAndInitialize(guitarInstance.transform); 
             }
             else
             {
                 Debug.LogError("씬에서 GuitarViewer 스크립트를 찾을 수 없습니다.");
             }
+            // ▲▲▲ 핵심 추가/수정 코드 ▲▲▲
+
+
+            // [중요] 생성된 프리팹 내부에서 슬롯들을 찾아 private 변수에 할당
+            bodySlot = guitarInstance.transform.Find("Guitar_Root/BodySlot");
         }
         else
         {

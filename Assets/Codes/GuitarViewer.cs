@@ -4,9 +4,6 @@ using UnityEngine.EventSystems; // UI 감지용
 
 public class GuitarViewer : MonoBehaviour
 {
-    // [Inspector에서 연결]
-    public Transform targetGuitar; // 회전/이동시킬 대상 (Guitar_Root)
-
     // [Inspector에서 조절할 속도 값]
     // 중요: Time.deltaTime을 안 쓰므로 0.1 ~ 0.5 사이의 작은 값을 사용합니다.
     [SerializeField] private float rotationSpeed = 0.2f; 
@@ -15,11 +12,40 @@ public class GuitarViewer : MonoBehaviour
 
     // 카메라의 Transform을 저장할 변수 (이 스크립트가 붙어있는 카메라 자신)
     private Transform cameraTransform;
+    private Transform targetGuitar; 
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
+    private Vector3 initialCameraPosition; // 카메라 위치도 초기화
+    private Quaternion initialCameraRotation; // 카메라 회전도 초기화
 
     void Start()
     {
         // 'transform'은 이 스크립트가 붙어있는 GameObject(Main Camera)의 Transform입니다.
-        cameraTransform = this.transform; 
+        cameraTransform = this.transform;
+        initialCameraPosition = cameraTransform.position;
+        initialCameraRotation = cameraTransform.rotation;
+    }
+
+    public void SetTargetAndInitialize(Transform target)
+    {
+        targetGuitar = target;
+        if (targetGuitar != null)
+        {
+            initialPosition = targetGuitar.position;
+            initialRotation = targetGuitar.rotation;
+        }
+    }
+
+    public void ResetView()
+    {
+        if (targetGuitar != null)
+        {
+            targetGuitar.position = initialPosition;
+            targetGuitar.rotation = initialRotation;
+        }
+        // 카메라 위치/회전도 초기화
+        cameraTransform.position = initialCameraPosition;
+        cameraTransform.rotation = initialCameraRotation;
     }
 
     void Update()
@@ -54,11 +80,11 @@ public class GuitarViewer : MonoBehaviour
             // [수정] RotateAround 대신 Rotate를 사용합니다.
             //       카메라 축(cameraTransform.up) 대신 월드 축(Vector3.up)을 사용합니다.
             
-            // 1. 좌우 드래그 (mouseX): 월드 Z축(Vector3.forward)을 축으로 회전
-            targetGuitar.Rotate(Vector3.forward, -mouseX, Space.World);
+            // 1. 좌우 드래그
+            targetGuitar.Rotate(Vector3.right, mouseX, Space.World);
 
-            // 2. 상하 드래그 (mouseY): 월드 X축(Vector3.right)을 축으로 회전
-            targetGuitar.Rotate(Vector3.right, mouseY, Space.World);
+            // 2. 상하 드래그
+            targetGuitar.Rotate(Vector3.forward, mouseY, Space.World);
         }
         // --- 2. 우클릭 드래그: 평행 이동 (Pan) ---
         if (Mouse.current.rightButton.isPressed)
@@ -70,9 +96,11 @@ public class GuitarViewer : MonoBehaviour
             // 카메라의 "오른쪽"과 "위쪽" 방향으로 이동할 벡터 계산
             // (마우스를 오른쪽으로 밀면, 물체는 왼쪽으로 움직여야 '잡고 끄는' 느낌이 납니다)
             Vector3 panDirection = (mouseDelta.x * cameraTransform.right) + (mouseDelta.y * cameraTransform.up);
-            
+
             // 기타 오브젝트를 해당 방향으로 이동 (Space.World 기준)
             targetGuitar.Translate(panDirection * panSpeed, Space.World);
         }
+        
+        if (targetGuitar == null) return;
     }
 }

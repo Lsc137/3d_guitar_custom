@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 98808290}
   - component: {fileID: 98808289}
   - component: {fileID: 98808288}
+  - component: {fileID: 98808291}
   m_Layer: 5
   m_Name: Jazz
   m_TagString: Untagged
@@ -203,9 +204,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 694484540}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: SelectGuitarAndLoad
+      - m_Target: {fileID: 98808291}
+        m_TargetAssemblyTypeName: MainMenuButtonActions, Assembly-CSharp
+        m_MethodName: SelectGuitar
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -253,6 +254,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98808286}
   m_CullTransparentMesh: 1
+--- !u!114 &98808291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98808286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5667b80bd2df7449a0868f2bb54da36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainMenuButtonActions
 --- !u!1 &203844586
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,13 +1524,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &977386051
 GameObject:
   m_ObjectHideFlags: 0
