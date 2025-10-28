@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70e4f31a26164745af28eb9978fc63b, type: 3}
+  m_Name: Category_bodywood
+  m_EditorClassIdentifier: Assembly-CSharp::CustomCategory
+  categoryName: Body
+  partToChange: 0
+  actionType: 0
+  options:
+  - optionName: Black
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: 685d977a295686742a57819c436a54aa, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Green
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: 5cc2391e59f78eb41b152f3e91ee66d9, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Red
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: dc7727c3041694c4bbd0a0651c4c8e48, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Daphne_blue
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: 6f45b81760f95474aa2026e8c4e0e0b5, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Vintage_white
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: 464a673221dee5c47b5c9805c704e03d, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Yellow
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: 7a8b54f157c999c43b327358d66fd8dc, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Burl
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: 511fbb2a9d05e6341ac271bc1b3dd4de, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Blue
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: 03c61a698bd21074389e84a59a8bc99d, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Flamed
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: 415a53dbc82004b4b86236b72b527e1d, type: 2}
+    partPrefab: {fileID: 0}

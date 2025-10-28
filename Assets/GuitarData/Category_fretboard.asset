@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70e4f31a26164745af28eb9978fc63b, type: 3}
+  m_Name: Category_fretboard
+  m_EditorClassIdentifier: Assembly-CSharp::CustomCategory
+  categoryName: Fretboard
+  partToChange: 2
+  actionType: 0
+  options:
+  - optionName: Maple
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: 50b48514da6648643b9464f2a25adb26, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Wenge
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: db9b775a6224ed149bc12207fc5375ad, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Ebony
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: 4aeeab2c9f747c94c8a0628e730ce12e, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Purpleheart
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: 56c09955b8e2b2e4bb79062fe7667354, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Rosewood
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: 9dff8d7192e61b64bbca2bcd9cb3aa68, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Roasted_maple
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: fecace008c6cd6747a9a6a91ea16e2ae, type: 2}
+    partPrefab: {fileID: 0}
+  - optionName: Birdseye_maple
+    thumbnailIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    materialToApply: {fileID: 2100000, guid: fd39eb47cb2d0fe4786d3737fc9997c5, type: 2}
+    partPrefab: {fileID: 0}

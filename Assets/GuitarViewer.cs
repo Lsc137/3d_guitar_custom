@@ -43,25 +43,23 @@ public class GuitarViewer : MonoBehaviour
             cameraTransform.Translate(cameraTransform.forward * scroll * zoomSpeed, Space.World);
         }
 
-        // --- 1. 좌클릭 드래그: 회전 (Orbit) ---
         if (Mouse.current.leftButton.isPressed)
         {
             // 마우스의 X, Y 이동량 (픽셀)
             Vector2 mouseDelta = Mouse.current.delta.ReadValue();
 
-            // Time.deltaTime을 곱하지 않습니다!
             float mouseX = mouseDelta.x * rotationSpeed;
             float mouseY = mouseDelta.y * rotationSpeed;
 
-            // targetGuitar의 현재 위치(position)를 중심으로 회전 (RotateAround)
+            // [수정] RotateAround 대신 Rotate를 사용합니다.
+            //       카메라 축(cameraTransform.up) 대신 월드 축(Vector3.up)을 사용합니다.
             
-            // 1. 좌우 드래그 (mouseX): 카메라의 "위쪽" 벡터(cameraTransform.up)를 축으로 회전
-            targetGuitar.RotateAround(targetGuitar.position, cameraTransform.up, -mouseX);
+            // 1. 좌우 드래그 (mouseX): 월드 Z축(Vector3.forward)을 축으로 회전
+            targetGuitar.Rotate(Vector3.forward, -mouseX, Space.World);
 
-            // 2. 상하 드래그 (mouseY): 카메라의 "오른쪽" 벡터(cameraTransform.right)를 축으로 회전
-            targetGuitar.RotateAround(targetGuitar.position, cameraTransform.right, mouseY);
+            // 2. 상하 드래그 (mouseY): 월드 X축(Vector3.right)을 축으로 회전
+            targetGuitar.Rotate(Vector3.right, mouseY, Space.World);
         }
-
         // --- 2. 우클릭 드래그: 평행 이동 (Pan) ---
         if (Mouse.current.rightButton.isPressed)
         {
