@@ -6,10 +6,10 @@
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 *.data filter=lfs diff=lfs merge=lfs -text
 
-*.wasm.gz binary
-*.data.gz binary
-*.js.gz binary
-*.symbols.json.gz binary
+*.wasm binary
+*.data binary
+*.js binary
+*.symbols.json binary
 
 *.wasm binary
 *.data binary
