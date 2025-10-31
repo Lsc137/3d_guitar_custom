@@ -1902,7 +1902,7 @@ MonoBehaviour:
   guitarSpawnPoint: {x: 1, y: 0, z: -5}
   guitarSpawnRotation: {x: 0, y: 90, z: -90}
   jazzBassSetupPrefab: {fileID: 6774709261635588588, guid: 66a9335e9fdf50341bce1190523fd99f, type: 3}
-  precisionBassSetupPrefab: {fileID: 0}
+  precisionBassSetupPrefab: {fileID: 3720477711584790018, guid: a0eea9321beded74f8235d3fcfdb104b, type: 3}
   stratSetupPrefab: {fileID: 2158954215983601971, guid: 6aacfd601a90f9d43977bc998aa6e70c, type: 3}
   teleSetupPrefab: {fileID: 0}
   allCategories_JazzBass:
@@ -1912,7 +1912,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e393f215e14b14e40974f20c149199f3, type: 2}
   - {fileID: 11400000, guid: ab11f9593752e5240a214f4ab193ddf6, type: 2}
   - {fileID: 11400000, guid: 909d07bd41e452b419587dc57df7bb65, type: 2}
-  allCategories_PrecisionBass: []
+  allCategories_PrecisionBass:
+  - {fileID: 11400000, guid: f4107eb981a4bbf48908755b29826633, type: 2}
+  - {fileID: 11400000, guid: 13ee896b9b042854982c6d624768671a, type: 2}
+  - {fileID: 11400000, guid: e393f215e14b14e40974f20c149199f3, type: 2}
+  - {fileID: 11400000, guid: e393f215e14b14e40974f20c149199f3, type: 2}
+  - {fileID: 11400000, guid: 75e3d65ec96f9d540ad9e73001fcaec2, type: 2}
+  - {fileID: 11400000, guid: 909d07bd41e452b419587dc57df7bb65, type: 2}
   allCategories_Strat:
   - {fileID: 11400000, guid: b9815f21b415e2044a1a339d87416be8, type: 2}
   - {fileID: 11400000, guid: 13ee896b9b042854982c6d624768671a, type: 2}
