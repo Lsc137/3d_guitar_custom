@@ -5,6 +5,9 @@ using TMPro;
 
 public class CustomizationManager : MonoBehaviour
 {
+
+    public Vector3 guitarSpawnPoint = new Vector3(0, 0, 0);
+    public Vector3 guitarSpawnRotation = new Vector3(0, 0, 0);
     // --- 1. [확장] 4개 모델의 셋업 프리팹 ---
     [Header("Guitar Setup Prefabs")]
     public GameObject jazzBassSetupPrefab;
@@ -25,11 +28,17 @@ public class CustomizationManager : MonoBehaviour
     public GameObject optionButtonPrefab;
 
     // --- 3. [변경] 슬롯 변수는 private (Start에서 채워짐) ---
-    private Transform bodySlot;
-    private Transform neckSlot;
-    private Transform fretboardSlot;
-    private Transform inlaySlot;
-    private Transform pickguardSlot;
+
+    [Header("Lighting Rigs")]
+    public List<GameObject> allLightingRigs;
+    private Transform BodySlot;
+    private Transform NeckSlot;
+    private Transform FretboardSlot;
+    private Transform InlaySlot;
+    private Transform PickguardSlot;
+
+    private MeshRenderer headRenderer;    
+    private Material currentSkyboxMaterial;
 
     // (모델마다 슬롯이 더 필요하면 여기에 private 변수만 추가하고 Start()에서 찾아주세요)
 
@@ -79,38 +88,31 @@ public class CustomizationManager : MonoBehaviour
         
         if (prefabToLoad != null)
         {
-            // 선택된 기타 프리팹을 씬에 생성 (이것이 'Guitar_Turntable'이 됨)
-            GameObject guitarInstance = Instantiate(prefabToLoad, Vector3.zero, Quaternion.identity);
+            GameObject guitarInstance = Instantiate(prefabToLoad, guitarSpawnPoint, Quaternion.Euler(guitarSpawnRotation));
 
-            // [중요] 생성된 프리팹 내부에서 슬롯들을 찾아 private 변수에 할당
-            // 이 경로는 모든 기타 프리팹에서 동일해야 합니다! (예: "Guitar_Root/BodySlot")
-            bodySlot = guitarInstance.transform.Find("Guitar_Root/BodySlot");
-            neckSlot = guitarInstance.transform.Find("Guitar_Root/NeckSlot");
-            fretboardSlot = guitarInstance.transform.Find("Guitar_Root/FretboardSlot");
-            inlaySlot = guitarInstance.transform.Find("Guitar_Root/InlaySlot");
-            pickguardSlot = guitarInstance.transform.Find("Guitar_Root/PickguardSlot");
+            // 2. 씬에서 GuitarViewer 찾기
+            GuitarViewer viewer = FindObjectOfType<GuitarViewer>();
 
-            // ▼▼▼ 핵심 추가/수정 코드 ▼▼▼
-            // 1. 씬에서 GuitarViewer 컴포넌트를 찾습니다.
-            GuitarViewer viewer = FindObjectOfType<GuitarViewer>(); 
+            // 3. _CameraTarget 찾기
+            Transform cameraTargetTransform = guitarInstance.transform.Find("_CameraTarget");
+
             if (viewer != null)
             {
-                // 2. GuitarViewer에게 타겟을 설정하고 초기값을 저장하라고 명령합니다.
-                viewer.SetTargetAndInitialize(guitarInstance.transform); 
+                // [★핵심★] 롤백된 SetTargetAndInitialize 호출
+                // (이 함수는 targetGuitar도 함께 설정해 줌)
+                viewer.SetTargetAndInitialize(guitarInstance.transform, cameraTargetTransform);
             }
             else
             {
                 Debug.LogError("씬에서 GuitarViewer 스크립트를 찾을 수 없습니다.");
             }
-            // ▲▲▲ 핵심 추가/수정 코드 ▲▲▲
-
-
-            // [중요] 생성된 프리팹 내부에서 슬롯들을 찾아 private 변수에 할당
-            bodySlot = guitarInstance.transform.Find("Guitar_Root/BodySlot");
-        }
-        else
-        {
-            Debug.LogError("'" + selectedID + "'에 해당하는 프리팹이 CustomManager에 할당되지 않았습니다!");
+            
+            // 5. 슬롯 찾기 (기존 코드)
+            BodySlot = guitarInstance.transform.Find("BodySlot");
+            NeckSlot = guitarInstance.transform.Find("NeckSlot");
+            InlaySlot = guitarInstance.transform.Find("InlaySlot");
+            PickguardSlot = guitarInstance.transform.Find("PickguardSlot");
+            FretboardSlot = guitarInstance.transform.Find("FretboardSlot");
         }
 
         // 선택된 기타에 맞는 UI 메뉴 빌드
@@ -157,37 +159,43 @@ public class CustomizationManager : MonoBehaviour
 
                 // --- 머티리얼에서 텍스처/색상 추출 ---
                 Color displayColor = Color.grey;
-                Material mat = option.materialToApply;
-                if (mat != null)
+                if (option.thumbnailIcon != null)
                 {
-                    if (mat.mainTexture != null)
-                    {
-                        previewImage.texture = mat.mainTexture;
-                        previewImage.color = mat.HasProperty("_BaseColor") ? mat.GetColor("_BaseColor") : Color.white;
-                    }
-                    else
-                    {
-                        previewImage.texture = null; 
-                        if (mat.HasProperty("_BaseColor")) previewImage.color = mat.GetColor("_BaseColor");
-                        else if (mat.HasProperty("_Color")) previewImage.color = mat.GetColor("_Color");
-                    }
-                    displayColor = previewImage.color;
+                    Sprite sprite = option.thumbnailIcon;
+                    Texture2D tex = sprite.texture;
+
+                    // 썸네일 텍스처 설정
+                    previewImage.texture = tex;
+                    
+                    // 스프라이트의 픽셀 Rect를 전체 텍스처 크기로 나눠서 uvRect 계산
+                    Rect normalizedRect = new Rect(
+                        sprite.textureRect.x / tex.width,
+                        sprite.textureRect.y / tex.height,
+                        sprite.textureRect.width / tex.width,
+                        sprite.textureRect.height / tex.height
+                    );
+                    previewImage.uvRect = normalizedRect;
+                    
+                    // Sprite를 위한 기본 틴트는 흰색(원본 색상)
+                    previewImage.color = Color.white; 
                 }
-                
-                // --- 글자 설정 (텍스트 내용 및 색상) ---
+                // 2. (비상용) 썸네일이 실수로 비어있는 경우
+                else
+                {
+                    previewImage.texture = null;
+                    previewImage.uvRect = new Rect(0, 0, 1, 1); 
+                    previewImage.color = Color.magenta; // '오류'를 의미하는 자홍색
+                }
+
+                // --- 글자 색상 결정 로직 ---
                 if (nameText != null)
                 {
                     nameText.text = option.optionName;
                     
-                    // 텍스처가 있으면 무조건 흰색, 없으면 밝기 분석
-                    if (mat != null && mat.mainTexture != null)
-                    {
-                        nameText.color = Color.white;
-                    }
-                    else
-                    {
-                        nameText.color = IsColorDark(displayColor) ? Color.white : Color.black;
-                    }
+                    // 모든 썸네일이 (가정상) Sprite(이미지)이므로,
+                    // '흰색' 글씨가 가장 잘 보일 것이라고 가정
+                    nameText.color = Color.white;
+                    // (팁: TextMeshPro의 'Outline'이나 'Drop Shadow'를 켜면 더 좋습니다)
                 }
 
                 // --- 체크박스 로직 설정 ---
@@ -224,76 +232,148 @@ public class CustomizationManager : MonoBehaviour
 
         } // (카테고리 루프 끝)
     }
-    
-    // --- 6. 하이브리드 ApplyOption 함수 (변경 없음) ---
-    void ApplyOption(CustomCategory category, CustomOption option)
+
+/// <summary>
+    /// UI 버튼이 호출하는 '메인' 함수. 메인 변경과 종속 변경을 모두 지시합니다.
+    /// </summary>
+    public void ApplyOption(CustomCategory category, CustomOption option)
     {
-        Transform targetSlot = GetSlotFromPart(category.partToChange);
-        if (targetSlot == null)
+        // 1. 메인 변경 실행 (예: 픽가드 교체)
+        // (이 함수는 targetSlot을 찾아서 프리팹/재질을 교체합니다)
+        Transform mainTargetSlot = ExecuteMainChange(category.partToChange, category.actionType, option);
+
+        // 2. 종속 변경 리스트를 순회하며 모두 실행
+        if (option.dependentChanges != null && option.dependentChanges.Count > 0)
         {
-            Debug.LogError("타겟 슬롯이 없습니다: " + category.partToChange);
-            return;
+            // 종속 변경은 '메인 슬롯'(예: PickguardSlot) 내부에서 일어납니다.
+            if (mainTargetSlot != null && mainTargetSlot.childCount > 0)
+            {
+                // 부모 파츠의 Transform (예: 'pickguard_default_prefab' 인스턴스)
+                Transform parentPartTransform = mainTargetSlot.GetChild(1);
+
+                foreach (DependentChange change in option.dependentChanges)
+                {
+                    // 부모 파츠 내부에서 "Dependent/Pickguard_outer" 같은 자식 Transform을 찾습니다.
+                    Transform childToChange = parentPartTransform.Find(change.childPath);
+                    
+                    if (childToChange != null)
+                    {
+                        // 찾은 자식(예: "Pickguard_outer")에 변경 사항을 적용합니다.
+                        ExecuteDependentChange(childToChange, change);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("종속 파츠를 찾지 못했습니다: " + change.childPath + " (in " + parentPartTransform.name + ")");
+                    }
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 메인 변경을 실행하고, 변경된 슬롯을 반환합니다. (기존 ApplyOption 로직)
+    /// </summary>
+    private Transform ExecuteMainChange(TargetPart part, CustomizationType type, CustomOption option)
+    {
+        // [Skybox 재질 교체]
+        if (part == TargetPart.Skybox)
+        {
+            if (option.materialToApply != null)
+            {
+                RenderSettings.skybox = option.materialToApply;
+                currentSkyboxMaterial = option.materialToApply; 
+                DynamicGI.UpdateEnvironment();
+            }
+            return null; // Skybox는 슬롯이 없음
         }
 
-        switch (category.actionType)
+        // [일반 파츠 교체]
+        Transform targetSlot = GetSlotFromPart(part);
+        if (targetSlot == null)
+        {
+            Debug.LogError("타겟 슬롯이 없습니다: " + part);
+            return null;
+        }
+        
+        switch (type)
         {
             case CustomizationType.PrefabSwap:
-                if (option.partPrefab == null) return;
-                
-                foreach (Transform child in targetSlot)
+                if (option.partPrefab == null) return targetSlot;
+                if (targetSlot.childCount > 0)
                 {
-                    Destroy(child.gameObject);
+                    Destroy(targetSlot.GetChild(0).gameObject);
                 }
-                
                 GameObject newPart = Instantiate(option.partPrefab, targetSlot);
                 newPart.transform.localPosition = Vector3.zero;
                 newPart.transform.localRotation = Quaternion.identity;
                 break;
 
-            // --- B. 재질만 교체 ---
             case CustomizationType.MaterialOnly:
-                if (option.materialToApply == null)
-                {
-                    Debug.LogError("적용할 재질이 없습니다: " + option.optionName);
-                    return;
-                }
+                if (option.materialToApply == null) return targetSlot;
+                if (targetSlot.childCount == 0) return targetSlot; // 슬롯에 자식이 없음
 
-                // [수정] 슬롯에 자식이 있는지 먼저 확인
-                if (targetSlot.childCount == 0)
+                Transform mainChild = targetSlot.GetChild(0);
+                
+                if (mainChild != null)
                 {
-                    Debug.LogWarning("재질을 적용할 파츠가 슬롯에 없습니다: " + targetSlot.name);
-                    return;
-                }
-
-                // [수정] 슬롯 자체(GetComponent)가 아니라,
-                // 슬롯의 "첫 번째 자식"에서 MeshRenderer를 찾습니다.
-                MeshRenderer targetRenderer = targetSlot.GetChild(0).GetComponentInChildren<MeshRenderer>();
-                // (GetComponentInChildren는 자식의 자식에 있어도 찾아줍니다. 가장 안전합니다.)
-
-                if (targetRenderer != null)
-                {
-                    // 재질 교체!
-                    targetRenderer.material = option.materialToApply;
+                    MeshRenderer targetRenderer = mainChild.GetComponent<MeshRenderer>();
+                    if (targetRenderer != null) {
+                        targetRenderer.material = option.materialToApply;
+                    } else {
+                        Debug.LogError("메인 자식에서 MeshRenderer를 찾지 못했습니다");
+                    }
                 }
                 else
                 {
-                    // [수정] 오류 메시지 변경
-                    Debug.LogError("슬롯의 자식 오브젝트에서 MeshRenderer를 찾을 수 없습니다: " + targetSlot.GetChild(0).name);
+                    Debug.LogError("메인 자식 파츠를 찾지 못했습니다");
+                    Debug.Log("Current path: " + targetSlot);
                 }
+                
+                break;
+        }
+        return targetSlot; // 변경이 일어난 메인 슬롯을 반환
+    }
+    
+    /// <summary>
+    /// 종속 파츠(자식)의 변경을 실행합니다.
+    /// </summary>
+    private void ExecuteDependentChange(Transform childTransform, DependentChange change)
+    {
+        switch (change.actionType)
+        {
+            case CustomizationType.MaterialOnly:
+                if (change.materialToApply == null) return;
+                
+                // 종속 파츠는 자식의 자식일 수 있으므로 GetComponentInChildren 사용
+                MeshRenderer targetRenderer = childTransform.GetComponentInChildren<MeshRenderer>();
+                if (targetRenderer != null)
+                {
+                    targetRenderer.material = change.materialToApply;
+                }
+                else
+                {
+                    Debug.LogError("종속 자식에서 MeshRenderer를 찾지 못했습니다: " + childTransform.name);
+                }
+                break;
+
+            case CustomizationType.PrefabSwap:
+                // (자식의 프리팹을 교체하는 것은 더 복잡하므로,
+                //  일단 MaterialOnly만 구현합니다.)
                 break;
         }
     }
 
-    // --- 7. 슬롯 반환 헬퍼 함수 (변경 없음) ---
+    // --- 6. GetSlotFromPart 헬퍼 함수 ---
     Transform GetSlotFromPart(TargetPart part)
     {
         switch (part)
         {
-            case TargetPart.Body: return bodySlot;
-            case TargetPart.Neck: return neckSlot;
-            case TargetPart.Fretboard: return fretboardSlot;
-            case TargetPart.Inlay: return inlaySlot;
-            case TargetPart.Pickguard: return pickguardSlot;
+            case TargetPart.Body: return BodySlot;
+            case TargetPart.Neck: return NeckSlot;
+            case TargetPart.Fretboard: return FretboardSlot;
+            case TargetPart.Inlay: return InlaySlot;
+            case TargetPart.Pickguard_inner: return PickguardSlot;
+            case TargetPart.Skybox: return null; 
             default: return null;
         }
     }

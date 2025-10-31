@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 // 교체할 파츠 (기존과 동일)
-public enum TargetPart { Body, Neck, Fretboard, Inlay, Pickguard }
+public enum TargetPart { Body, Neck, Fretboard, Inlay, Pickguard_inner, Pickguard_outer, Knob, Skybox }
 
 // [추가] 이 카테고리가 수행할 작업 유형
 public enum CustomizationType 

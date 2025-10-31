@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70e4f31a26164745af28eb9978fc63b, type: 3}
+  m_Name: Jb_body
+  m_EditorClassIdentifier: Assembly-CSharp::CustomCategory
+  categoryName: Body
+  partToChange: 0
+  actionType: 0
+  options:
+  - optionName: Black
+    thumbnailIcon: {fileID: 21300000, guid: d871b5b1da2e327469b45482f0ec494c, type: 3}
+    partPrefab: {fileID: 0}
+    materialToApply: {fileID: 2100000, guid: 685d977a295686742a57819c436a54aa, type: 2}
+    floatValue: 0
+    dependentChanges: []
+  - optionName: Green
+    thumbnailIcon: {fileID: 21300000, guid: 0159db4b6fce9b1458854f7d3fc69515, type: 3}
+    partPrefab: {fileID: 0}
+    materialToApply: {fileID: 2100000, guid: 5cc2391e59f78eb41b152f3e91ee66d9, type: 2}
+    floatValue: 0
+    dependentChanges: []
+  - optionName: Red
+    thumbnailIcon: {fileID: 21300000, guid: af94b5235abf1bf4e9b0ad2d1e2e3f2f, type: 3}
+    partPrefab: {fileID: 0}
+    materialToApply: {fileID: 2100000, guid: dc7727c3041694c4bbd0a0651c4c8e48, type: 2}
+    floatValue: 0
+    dependentChanges: []
+  - optionName: Daphne blue
+    thumbnailIcon: {fileID: 21300000, guid: 35bccf520795cac45a764d2a2828b0ba, type: 3}
+    partPrefab: {fileID: 0}
+    materialToApply: {fileID: 2100000, guid: 6f45b81760f95474aa2026e8c4e0e0b5, type: 2}
+    floatValue: 0
+    dependentChanges: []
+  - optionName: White
+    thumbnailIcon: {fileID: 21300000, guid: 2584fb91f8df5044f99e63fb64c5d0f4, type: 3}
+    partPrefab: {fileID: 0}
+    materialToApply: {fileID: 2100000, guid: 464a673221dee5c47b5c9805c704e03d, type: 2}
+    floatValue: 0
+    dependentChanges: []
+  - optionName: Yellow
+    thumbnailIcon: {fileID: 21300000, guid: 9af0a6f3eae678948abf58ab58f4f4de, type: 3}
+    partPrefab: {fileID: 0}
+    materialToApply: {fileID: 2100000, guid: e68772f8154cdf746942395e37f12d46, type: 2}
+    floatValue: 0
+    dependentChanges: []
+  - optionName: Burl
+    thumbnailIcon: {fileID: 21300000, guid: 9e827536f6715d24093be937f7cd7234, type: 3}
+    partPrefab: {fileID: 0}
+    materialToApply: {fileID: 2100000, guid: 511fbb2a9d05e6341ac271bc1b3dd4de, type: 2}
+    floatValue: 0
+    dependentChanges: []
+  - optionName: Blue
+    thumbnailIcon: {fileID: 21300000, guid: 78382352ce43c864b8d79cc032b98e64, type: 3}
+    partPrefab: {fileID: 0}
+    materialToApply: {fileID: 2100000, guid: 03c61a698bd21074389e84a59a8bc99d, type: 2}
+    floatValue: 0
+    dependentChanges: []
+  - optionName: Flamed maple
+    thumbnailIcon: {fileID: 21300000, guid: 9dae4cd2016b02f439ffe69a87f44a76, type: 3}
+    partPrefab: {fileID: 0}
+    materialToApply: {fileID: 2100000, guid: 415a53dbc82004b4b86236b72b527e1d, type: 2}
+    floatValue: 0
+    dependentChanges: []
+  - optionName: Sunburst
+    thumbnailIcon: {fileID: 21300000, guid: 93e372e520fa2c64da6846455f5c137a, type: 3}
+    partPrefab: {fileID: 0}
+    materialToApply: {fileID: 2100000, guid: d45fa8a68fa139e4786e58a6a03674cf, type: 2}
+    floatValue: 0
+    dependentChanges: []
+  - optionName: Quilted maple
+    thumbnailIcon: {fileID: 21300000, guid: 60a364c46f020144fbd1980d6f04890f, type: 3}
+    partPrefab: {fileID: 0}
+    materialToApply: {fileID: 2100000, guid: 2d8d2dbdc6cda0d4bba292cc9b49e507, type: 2}
+    floatValue: 0
+    dependentChanges: []
