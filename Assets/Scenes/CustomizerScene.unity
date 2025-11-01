@@ -1904,7 +1904,7 @@ MonoBehaviour:
   jazzBassSetupPrefab: {fileID: 6774709261635588588, guid: 66a9335e9fdf50341bce1190523fd99f, type: 3}
   precisionBassSetupPrefab: {fileID: 3720477711584790018, guid: a0eea9321beded74f8235d3fcfdb104b, type: 3}
   stratSetupPrefab: {fileID: 2158954215983601971, guid: 6aacfd601a90f9d43977bc998aa6e70c, type: 3}
-  teleSetupPrefab: {fileID: 0}
+  teleSetupPrefab: {fileID: 8036215853274036326, guid: 971fa9a5d993783489dc8355855d7f2f, type: 3}
   allCategories_JazzBass:
   - {fileID: 11400000, guid: 3123e9909903649479b177220a2976b7, type: 2}
   - {fileID: 11400000, guid: 13ee896b9b042854982c6d624768671a, type: 2}
@@ -1926,7 +1926,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e393f215e14b14e40974f20c149199f3, type: 2}
   - {fileID: 11400000, guid: 56e2e54c352aba04fb4bdf6de7e66c98, type: 2}
   - {fileID: 11400000, guid: 909d07bd41e452b419587dc57df7bb65, type: 2}
-  allCategories_Tele: []
+  allCategories_Tele:
+  - {fileID: 11400000, guid: 9201f45a50e46b64fb590659d9007fae, type: 2}
+  - {fileID: 11400000, guid: 13ee896b9b042854982c6d624768671a, type: 2}
+  - {fileID: 11400000, guid: f91fdb80d98a5b6458224c5e1ad2d444, type: 2}
+  - {fileID: 11400000, guid: e393f215e14b14e40974f20c149199f3, type: 2}
+  - {fileID: 11400000, guid: 89bad30e5c953ec41a869ce302146660, type: 2}
+  - {fileID: 11400000, guid: 909d07bd41e452b419587dc57df7bb65, type: 2}
   menuContentParent: {fileID: 2010029385}
   categoryHeaderPrefab: {fileID: 94822084649380158, guid: 48f06fb77393f064a85963f73c5b3ecf, type: 3}
   optionButtonPrefab: {fileID: 7395988351600013482, guid: ce25715672b17cf43bd706aea0ec3213, type: 3}
