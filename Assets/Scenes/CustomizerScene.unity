@@ -1909,13 +1909,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3123e9909903649479b177220a2976b7, type: 2}
   - {fileID: 11400000, guid: 13ee896b9b042854982c6d624768671a, type: 2}
   - {fileID: 11400000, guid: f91fdb80d98a5b6458224c5e1ad2d444, type: 2}
-  - {fileID: 11400000, guid: e393f215e14b14e40974f20c149199f3, type: 2}
+  - {fileID: 11400000, guid: 477e9fdd2e7079341ac75c7938b7ce99, type: 2}
   - {fileID: 11400000, guid: ab11f9593752e5240a214f4ab193ddf6, type: 2}
   - {fileID: 11400000, guid: 909d07bd41e452b419587dc57df7bb65, type: 2}
   allCategories_PrecisionBass:
   - {fileID: 11400000, guid: f4107eb981a4bbf48908755b29826633, type: 2}
   - {fileID: 11400000, guid: 13ee896b9b042854982c6d624768671a, type: 2}
-  - {fileID: 11400000, guid: e393f215e14b14e40974f20c149199f3, type: 2}
+  - {fileID: 11400000, guid: f91fdb80d98a5b6458224c5e1ad2d444, type: 2}
   - {fileID: 11400000, guid: e393f215e14b14e40974f20c149199f3, type: 2}
   - {fileID: 11400000, guid: 75e3d65ec96f9d540ad9e73001fcaec2, type: 2}
   - {fileID: 11400000, guid: 909d07bd41e452b419587dc57df7bb65, type: 2}
@@ -1936,6 +1936,8 @@ MonoBehaviour:
   menuContentParent: {fileID: 2010029385}
   categoryHeaderPrefab: {fileID: 94822084649380158, guid: 48f06fb77393f064a85963f73c5b3ecf, type: 3}
   optionButtonPrefab: {fileID: 7395988351600013482, guid: ce25715672b17cf43bd706aea0ec3213, type: 3}
+  baseCategoryColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
+  brightnessStep: 0.2
   allLightingRigs:
   - {fileID: 1324174115}
   - {fileID: 1387007079}
@@ -1989,15 +1991,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
   m_Padding:
-    m_Left: 5
-    m_Right: 5
-    m_Top: 5
-    m_Bottom: 5
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 10
+  m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0

@@ -21,10 +21,13 @@ public class CustomOption
     [Tooltip("이 옵션이 프리팹을 통째로 교체하는 경우 (예: 픽가드 모양 변경)")]
     public GameObject partPrefab;
 
+    [Header("Main Child Path")]
+    [Tooltip("메인 자식의 경로")]
+    public string mainChildPath = "";
+
     [Header("Material Only Change")]
     [Tooltip("메인 자식에게 적용할 재질 (예: 톨토이스)")]
     public Material materialToApply;
-
 
     [Header("Dependent Changes")]
     [Tooltip("이 옵션 적용 시 함께 변경될 다른 자식 파츠들")]
