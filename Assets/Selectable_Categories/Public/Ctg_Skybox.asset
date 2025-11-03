@@ -13,26 +13,32 @@ MonoBehaviour:
   m_Name: Ctg_Skybox
   m_EditorClassIdentifier: Assembly-CSharp::CustomCategory
   categoryName: Lighting
-  partToChange: 7
+  nodeType: 0
+  partToChange: 5
   actionType: 0
   options:
   - optionName: Monotone
     thumbnailIcon: {fileID: 21300000, guid: 2584fb91f8df5044f99e63fb64c5d0f4, type: 3}
     partPrefab: {fileID: 0}
+    mainChildPath: 
     materialToApply: {fileID: 2100000, guid: 5d0070e6906358049a47327843efc37c, type: 2}
     dependentChanges: []
   - optionName: Outdoor
     thumbnailIcon: {fileID: 21300000, guid: 26633cdb49184104eb6b8d12df446bba, type: 3}
     partPrefab: {fileID: 0}
+    mainChildPath: 
     materialToApply: {fileID: 2100000, guid: 6f15edd286387894591dd7ab290554b6, type: 2}
     dependentChanges: []
   - optionName: Warm bar
     thumbnailIcon: {fileID: 21300000, guid: 6026e9f7c4e03924b98d3c8f708d2451, type: 3}
     partPrefab: {fileID: 0}
+    mainChildPath: 
     materialToApply: {fileID: 2100000, guid: cdda7625542f7674cbc1d815e07d28f5, type: 2}
     dependentChanges: []
   - optionName: Studio
     thumbnailIcon: {fileID: 21300000, guid: 0c17301c24c254a42abe3e2351f42cd8, type: 3}
     partPrefab: {fileID: 0}
+    mainChildPath: 
     materialToApply: {fileID: 2100000, guid: 771d6111c38049f48b4d689d9f963d42, type: 2}
     dependentChanges: []
+  subCategories: []

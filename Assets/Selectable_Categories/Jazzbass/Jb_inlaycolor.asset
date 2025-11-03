@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d70e4f31a26164745af28eb9978fc63b, type: 3}
   m_Name: Jb_inlaycolor
   m_EditorClassIdentifier: Assembly-CSharp::CustomCategory
-  categoryName: Inlay
+  categoryName: Inlay color
   nodeType: 0
   partToChange: 3
   actionType: 0
@@ -20,19 +20,19 @@ MonoBehaviour:
   - optionName: Pearl
     thumbnailIcon: {fileID: 21300000, guid: 75a7bfbb0414cea469d6a4cab1b3e9b2, type: 3}
     partPrefab: {fileID: 0}
-    mainChildPath: 
+    mainChildPath: Main
     materialToApply: {fileID: 2100000, guid: 0d455245801d64d48bf2058cc68c3b00, type: 2}
     dependentChanges: []
   - optionName: Cream
     thumbnailIcon: {fileID: 21300000, guid: 7da2cb00ecfa2d34a971f6b78f39efb1, type: 3}
     partPrefab: {fileID: 0}
-    mainChildPath: 
+    mainChildPath: Main
     materialToApply: {fileID: 2100000, guid: 98d4d4b374103464e9a144f975f8dcc7, type: 2}
     dependentChanges: []
   - optionName: Black
     thumbnailIcon: {fileID: 21300000, guid: d871b5b1da2e327469b45482f0ec494c, type: 3}
     partPrefab: {fileID: 0}
-    mainChildPath: 
+    mainChildPath: Main
     materialToApply: {fileID: 2100000, guid: 685d977a295686742a57819c436a54aa, type: 2}
     dependentChanges: []
   subCategories: []

@@ -25,6 +25,7 @@ public class CustomOption
     [Tooltip("메인 자식의 경로")]
     public string mainChildPath = "";
 
+
     [Header("Material Only Change")]
     [Tooltip("메인 자식에게 적용할 재질 (예: 톨토이스)")]
     public Material materialToApply;

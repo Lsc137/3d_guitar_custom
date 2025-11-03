@@ -30,7 +30,7 @@ public class CustomizationManager : MonoBehaviour
     [Tooltip("가장 상위 카테고리(레벨 1)의 기본 색상입니다.")]
     public Color baseCategoryColor = new Color(0.9f, 0.9f, 0.9f, 1f); // 옅은 회색  
     [Tooltip("한 단계 내려갈 때마다 얼마나 밝아질지 (0.0 ~ 1.0)")]
-    public float brightnessStep = 0.2f; // 30%씩 밝아짐
+    public float brightnessStep = 0.16f; // 16%씩 밝아짐
 
     // --- 3. [변경] 슬롯 변수는 private (Start에서 채워짐) ---
 
@@ -121,189 +121,97 @@ public class CustomizationManager : MonoBehaviour
         CreateCategoryButtons(categoriesToLoad, menuContentParent, baseCategoryColor);
     }
 
-    void CreateCategoryButtons(List<CustomCategory> categories, Transform parent, Color currentColor){
-        if (categories == null) return;
-
-        foreach (CustomCategory category in categories){
-            if (category.nodeType == CategoryNodeType.SubCategoryList)
-            {
-                CreateCategoryButtons(category, this.transform, ?color? )
-            } 
-            else if (cateory.nodeType == CategoryNodeType.OptionsList)
-            {
-                CreateOptionButtons(category, )
-            }
-            
-        }
-
-    }
-
-
-    private void CreateOptionButtons(CustomCategory options, Transform parent, Color currentColor){
-
-    }
-
-    
-
-    /*
-    /// <summary>
-    /// 아코디언 메뉴를 재귀적으로 빌드합니다. (최대 3레벨: Cat -> SubCat -> Option)
+/// <summary>
+    /// [새 재귀 함수 1] (슈도코드의 CreateCategoryButton)
+    /// 카테고리 버튼 리스트를 생성하고, UIMenuNode를 붙여 초기화합니다.
     /// </summary>
-    /// <param name="categories">빌드할 카테고리 리스트</param>
-    /// <param name="parent">이 버튼들이 생성될 부모 Transform</param>
-    void BuildFoldingMenu(List<CustomCategory> categories, Transform parent, Color currentColor)
+    private List<GameObject> CreateCategoryButtons(List<CustomCategory> categories, Transform parent, Color currentColor)
     {
-        if (categories == null) return;
+        // 이 함수 호출(현재 레벨)에서 생성된 '직접 자식' 오브젝트들
+        List<GameObject> createdNodeObjects = new List<GameObject>();
+        if (categories == null) return createdNodeObjects;
 
         foreach (CustomCategory category in categories)
         {
-            // --- 1. '카테고리 헤더' 버튼 생성 (예: "Inlay" 또는 "Shape") ---
+            // --- 1. '카테고리 헤더' 생성 ---
             GameObject headerObj = Instantiate(categoryHeaderPrefab, parent);
-            headerObj.GetComponentInChildren<TextMeshProUGUI>().text = category.categoryName;
+            createdNodeObjects.Add(headerObj); // 반환 리스트에 '나'를 추가
 
-            //닫힘 색상
+            // --- 2. 색상 계산 ---
             Color collapsedColor = currentColor;
-            Color expandedColor, nextLevelColor;
-            
-
+            Color expandedColor;
+            Color childColor;
             Color.RGBToHSV(currentColor, out float H, out float S, out float V);
             V += brightnessStep / 2;
             expandedColor = Color.HSVToRGB(H, S, V);
             V += brightnessStep / 2;
-            nextLevelColor = Color.HSVToRGB(H, S, V);
-
-            // --- 3. 버튼 컴포넌트 가져오기 및 초기 색상 설정 ---
-            Button headerButton = headerObj.GetComponent<Button>();
-            Image headerImage = headerObj.GetComponentInChildren<Image>(); // (Target Graphic 확인 필수)
-
-            if (headerButton != null)
-            {
-                ColorBlock colors = headerButton.colors;
-                colors.normalColor = collapsedColor;
-                headerButton.colors = colors;
-            }
-
-            // 이 헤더가 토글(접고 펴기)할 자식 UI 요소들 리스트
-            List<GameObject> childrenToToggle = new List<GameObject>();
-
-            // --- 2. 이 카테고리의 자식들 생성 ---
+            childColor = Color.HSVToRGB(H, S, V);
             
-            // A. 만약 자식이 '하위 카테고리'라면 (예: "Inlay" -> "Shape", "Color")
+            // --- 3. 자식 오브젝트들 생성 (재귀) ---
+            List<GameObject> childrenList = new List<GameObject>();
+            
             if (category.nodeType == CategoryNodeType.SubCategoryList)
             {
-                // 재귀 호출을 사용하지 않고, 2단계까지만 지원
-                foreach (CustomCategory subCategory in category.subCategories)
-                {
-                    // "Shape" 헤더 생성
-                    GameObject subHeaderObj = Instantiate(categoryHeaderPrefab, parent);
-                    subHeaderObj.GetComponentInChildren<TextMeshProUGUI>().text = "└ " + subCategory.categoryName; // (간단한 들여쓰기)
-
-                    Color subCollapsedColor = nextLevelColor;
-                    Color subExpandedColor;
-                    Color.RGBToHSV(nextLevelColor, out float H2, out float S2, out float V2);
-                    V2 += brightnessStep/2;
-                    subExpandedColor = Color.HSVToRGB(H2, S2, V2);
-
-                    Button subHeaderButton = subHeaderObj.GetComponent<Button>();
-                    Image subHeaderImage = subHeaderObj.GetComponentInChildren<Image>();
-                    if (subHeaderButton != null)
-                    {
-                        ColorBlock colors = subHeaderButton.colors;
-                        colors.normalColor = nextLevelColor; // 2단계 색상 적용
-                        subHeaderButton.colors = colors;
-                    }
-
-                    // "Shape" 헤더가 토글할 '옵션'들을 담을 리스트
-                    List<GameObject> subOptionsToToggle = new List<GameObject>();
-                    List<Toggle> togglesInThisCategory = new List<Toggle>();
-
-                    // "Dots", "Blocks" 옵션 생성
-                    foreach (CustomOption option in subCategory.options)
-                    {
-                        GameObject optionObj = Instantiate(optionButtonPrefab, parent);
-                        SetupOptionButton(optionObj, subCategory, option, togglesInThisCategory);
-
-                        optionObj.SetActive(false); // 옵션은 기본적으로 숨김
-                        subOptionsToToggle.Add(optionObj);
-                    }
-                    
-                    bool isSubCategoryExpanded = false; // '닫힘' 상태로 시작
-                    subHeaderButton.onClick.AddListener(() =>
-                    {
-                        // 1. 상태 뒤집기
-                        isSubCategoryExpanded = !isSubCategoryExpanded;
-                        
-                        // 2. 색상 변경
-                        if (subHeaderButton != null)
-                        {
-                            ColorBlock colors = subHeaderButton.colors;
-                            colors.normalColor = isSubCategoryExpanded ? subExpandedColor : subCollapsedColor;
-                            subHeaderButton.colors = colors;
-                        }
-                        
-                        // 3. 자식(옵션) 토글
-                        foreach (GameObject opt in subOptionsToToggle)
-                        {
-                            opt.SetActive(!opt.activeSelf);
-                        }
-                    });
-
-                    // "Shape" 헤더와 그 옵션들을 "Inlay" 헤더의 토글 리스트에 추가
-                    subHeaderObj.SetActive(false); // 하위 카테고리도 기본적으로 숨김
-                    childrenToToggle.Add(subHeaderObj);
-                    childrenToToggle.AddRange(subOptionsToToggle);
-                }
+                childrenList = CreateCategoryButtons(category.subCategories, parent, childColor);
             }
-            // B. 만약 자식이 '옵션'이라면 (예: "Body" -> "Red", "Blue")
             else if (category.nodeType == CategoryNodeType.OptionsList)
             {
-                List<Toggle> togglesInThisCategory = new List<Toggle>();
-                foreach (CustomOption option in category.options)
-                {
-                    GameObject optionObj = Instantiate(optionButtonPrefab, parent);
-                    SetupOptionButton(optionObj, category, option, togglesInThisCategory);
-                    
-
-                    optionObj.SetActive(false); // 옵션은 기본적으로 숨김
-                    childrenToToggle.Add(optionObj);
-                }
+                childrenList = CreateOptionButtons(category, parent);
+            }
+            
+            // --- 4. 자식들 숨기기 ---
+            foreach (GameObject child in childrenList)
+            {
+                child.SetActive(false);
             }
 
-            bool isCategoryExpanded = false; // '닫힘' 상태로 시작
-            headerButton.onClick.AddListener(() =>
+            // --- 5. '노드' 컴포넌트 가져와서 초기화 ---
+            // (주의: categoryHeaderPrefab에 UIMenuNode.cs가 미리 붙어있어야 함)
+            UIMenuNode node = headerObj.GetComponent<UIMenuNode>();
+            if (node != null)
             {
-                // 1. 상태 뒤집기
-                isCategoryExpanded = !isCategoryExpanded;
-                
-                // 2. 색상 변경
-                if (headerButton != null)
-                {
-                    ColorBlock colors = headerButton.colors;
-                    colors.normalColor = isCategoryExpanded ? expandedColor : collapsedColor;
-                    headerButton.colors = colors;
-                }
-
-                // 3. 자식 토글
-                foreach (GameObject child in childrenToToggle)
-                {
-                    child.SetActive(!child.activeSelf);
-                }
-            });
+                // UIMenuNode에게 텍스트, 색상, 자식 리스트를 주입
+                node.Initialize(collapsedColor, expandedColor, childrenList, category.categoryName);
+            }
+            else
+            {
+                Debug.LogError("CategoryHeaderPrefab에 UIMenuNode 스크립트가 없습니다!");
+            }
         }
+        return createdNodeObjects; // 생성된 노드 리스트 반환
     }
 
     /// <summary>
-    /// 옵션 버튼(Prefab)의 썸네일, 텍스트, 클릭 이벤트를 설정하는 헬퍼 함수
-    /// (기존 DisplayOptions 함수의 로직을 재활용)
+    /// [새 헬퍼 함수 2] (슈도코드의 CreateOptionButton)
+    /// '옵션' 버튼들만 생성합니다. (UIMenuNode 없음)
+    /// </summary>
+    private List<GameObject> CreateOptionButtons(CustomCategory category, Transform parent)
+    {
+        List<GameObject> createdOptions = new List<GameObject>();
+        List<Toggle> togglesForThisList = new List<Toggle>(); // 이 카테고리만의 토글 리스트
+
+        foreach (CustomOption option in category.options)
+        {
+            GameObject optionObj = Instantiate(optionButtonPrefab, parent);
+            SetupOptionButton(optionObj, category, option, togglesForThisList); 
+            createdOptions.Add(optionObj);
+        }
+        return createdOptions;
+    }
+    
+    /// <summary>
+    /// [새 헬퍼 함수 3]
+    /// 옵션 버튼(Prefab)의 썸네일, 텍스트, 클릭 이벤트를 설정합니다. (체크박스 버그 수정 포함)
     /// </summary>
     void SetupOptionButton(GameObject optionObj, CustomCategory category, CustomOption option, List<Toggle> toggleList)
     {
         // --- 컴포넌트 찾기 ---
         RawImage previewImage = optionObj.transform.Find("PreviewGroup/PreviewFill").GetComponent<RawImage>();
         TextMeshProUGUI nameText = optionObj.transform.Find("PreviewGroup/NameText").GetComponent<TextMeshProUGUI>();
-        Toggle thisToggle = optionObj.transform.Find("Checkbox").GetComponent<Toggle>(); // "Checkbox" 이름 확인!
+        Toggle thisToggle = optionObj.transform.Find("Checkbox").GetComponent<Toggle>(); 
         Button thisButton = optionObj.GetComponent<Button>();
 
+        
         // --- 썸네일 로직 ---
         if (option.thumbnailIcon != null)
         {
@@ -323,7 +231,7 @@ public class CustomizationManager : MonoBehaviour
         {
             previewImage.texture = null;
             previewImage.uvRect = new Rect(0, 0, 1, 1);
-            previewImage.color = Color.magenta; // 썸네일 없으면 오류 표시
+            previewImage.color = Color.magenta;
         }
 
         // --- 글자 색상 결정 로직 ---
@@ -334,27 +242,23 @@ public class CustomizationManager : MonoBehaviour
         }
 
         // --- 체크박스 로직 설정 ---
-        toggleList.Add(thisToggle);
+        toggleList.Add(thisToggle); // 이 리스트는 CreateOptionButtons에서 새로 생성됨
         thisToggle.interactable = false; 
 
         // --- 버튼 클릭 이벤트 연결 ---
-        CustomCategory currentCategory = category;
-        CustomOption currentOption = option;
-        
         thisButton.onClick.AddListener(() =>
         {
-            // 1. 메인 로직 실행
-            ApplyOption(currentCategory, currentOption);
-
-            // 2. [★수정★] 파라미터로 받은 리스트를 사용해 토글
+            ApplyOption(category, option);
+            
+            // 이 카테고리 리스트의 모든 토글을 끄고
             foreach (Toggle t in toggleList)
             {
                 t.isOn = false;
             }
+            // 지금 누른 것만 켠다
             thisToggle.isOn = true;
         });
     }
-    */
 
     /// <summary>
     /// UI 버튼이 호출하는 '메인' 함수. 메인 변경과 종속 변경을 모두 지시합니다.
@@ -372,7 +276,7 @@ public class CustomizationManager : MonoBehaviour
             if (mainTargetSlot != null && mainTargetSlot.childCount > 0)
             {
                 // 부모 파츠의 Transform (예: 'pickguard_default_prefab' 인스턴스)
-                Transform parentPartTransform = mainTargetSlot.GetChild(0);
+                Transform parentPartTransform = mainTargetSlot.Find("Dependent");
 
                 foreach (DependentChange change in option.dependentChanges)
                 {
@@ -424,19 +328,17 @@ public class CustomizationManager : MonoBehaviour
                 if (option.partPrefab == null) return targetSlot;
                 if (targetSlot.childCount > 0)
                 {
-                    Destroy(targetSlot.GetChild(0).gameObject);
+                    Destroy(targetSlot.Find("Main").GetChild(0).gameObject);
                 }
-                GameObject newPart = Instantiate(option.partPrefab, targetSlot);
-                newPart.transform.localPosition = Vector3.zero;
-                newPart.transform.localRotation = Quaternion.identity;
+                Instantiate(option.partPrefab, targetSlot.Find("Main"));
                 break;
 
             case CustomizationType.MaterialOnly:
                 if (option.materialToApply == null) return targetSlot;
                 if (targetSlot.childCount == 0) return targetSlot; // 슬롯에 자식이 없음
-                
+
                 // 슬롯의 첫 자식 (예: 'pickguard_default_prefab' 인스턴스)
-                Transform parentPart = targetSlot.GetChild(0);
+                Transform parentPart = targetSlot.Find(option.mainChildPath);
                 
                 MeshRenderer targetRenderer = null;
 
@@ -448,7 +350,7 @@ public class CustomizationManager : MonoBehaviour
                 // 2. mainChildPath가 있다면, '부품 프리팹'의 자식 중에서 찾습니다.
                 else
                 {
-                    Transform mainChild = parentPart.Find(option.mainChildPath);
+                    Transform mainChild = parentPart.GetChild(0);
                     if (mainChild != null)
                     {
                         targetRenderer = mainChild.GetComponent<MeshRenderer>();

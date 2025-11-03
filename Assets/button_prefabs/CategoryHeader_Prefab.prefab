@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 4779223182938906052}
   - component: {fileID: 6171324075583689649}
   - component: {fileID: 7873093937970542056}
+  - component: {fileID: 8631303695717797975}
   m_Layer: 5
   m_Name: CategoryHeader_Prefab
   m_TagString: Untagged
@@ -137,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -198,6 +199,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8631303695717797975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94822084649380158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b89ef7cd132af6409c399f6393737ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIMenuNode
 --- !u!1 &5963139700843345092
 GameObject:
   m_ObjectHideFlags: 0

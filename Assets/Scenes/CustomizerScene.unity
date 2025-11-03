@@ -1937,7 +1937,7 @@ MonoBehaviour:
   categoryHeaderPrefab: {fileID: 94822084649380158, guid: 48f06fb77393f064a85963f73c5b3ecf, type: 3}
   optionButtonPrefab: {fileID: 7395988351600013482, guid: ce25715672b17cf43bd706aea0ec3213, type: 3}
   baseCategoryColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
-  brightnessStep: 0.2
+  brightnessStep: 0.16
   allLightingRigs:
   - {fileID: 1324174115}
   - {fileID: 1387007079}

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 /// <summary>
 /// '카테고리 헤더' 프리팹에 붙어서,
@@ -10,50 +11,45 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Button))]
 public class UIMenuNode : MonoBehaviour
 {
-    // --- 1. 상태 (State) ---
-    private bool isExpanded = false;
-    private bool is_option;
-
-    // --- 2. 외형 (Appearance) ---
+    // --- 1. 참조 (References) ---
     private Button myButton;
+    private TextMeshProUGUI myText;
+    
+    // --- 2. 상태 (State) ---
+    private bool isExpanded = false;
+
+    // --- 3. 외형 (Appearance) ---
     private Color collapsedColor;
     private Color expandedColor;
 
-    // --- 3. 트리 구조 (Tree Structure) ---
-    private List<UIMenuNode> directChildren;
-}
+    // --- 4. 트리 구조 (Tree Structure) ---
+    // 이 노드가 직접 켜고 끌 '자식' 오브젝트들
+    private List<GameObject> directChildren = new List<GameObject>();
 
-
-public class UIMenuTree : MonoBehaviour
-{
-    public void Initialize(Color cColor, Color eColor, bool type, List<UIMenuNode> children)
+    /// <summary>
+    /// CustomizationManager가 이 노드를 생성할 때 호출하는 초기화 함수
+    /// </summary>
+    public void Initialize(Color cColor, Color eColor, List<GameObject> children, string categoryName)
     {
         // 1. 참조 설정
         myButton = GetComponent<Button>();
-        is_option = type;
+        myText = GetComponentInChildren<TextMeshProUGUI>();
+        
+        // 2. 텍스트 설정
+        myText.text = categoryName;
 
-        // 2. 색상 저장
+        // 3. 색상 저장
         collapsedColor = cColor;
         expandedColor = eColor;
         
-        // 3. 자식 노드 리스트 저장
-        foreach (CustomCategory child in children){
-            if (child.nodeType == CategoryNodeType.SubCategoryList)
-            {
-                directChildren.Add(new UIMenuNode(cColor, eColor, false, child))
-            }
-            else
-            {
-                directChildren.Add(new UIMenuNode(null, null, true, null))
-            }
-        }
+        // 4. 자식 노드 리스트 저장
+        directChildren = children;
         
-        
-        // 4. 초기 상태 설정 ('닫힘')
+        // 5. 초기 상태 설정 ('닫힘')
         isExpanded = false;
         SetButtonColor(collapsedColor); // 닫힘 색상으로 시작
         
-        // 5. 클릭 이벤트 연결
+        // 6. 클릭 이벤트 연결
         myButton.onClick.RemoveAllListeners(); // 기존 리스너 제거
         myButton.onClick.AddListener(OnToggle);
     }
@@ -80,21 +76,18 @@ public class UIMenuTree : MonoBehaviour
     /// </summary>
     private void OpenOperation()
     {
-        // 1. 내 색상을 '열림'으로 변경 (카테고리일시만)
-        if (!is_option) SetButtonColor(expandedColor);
+        // 1. 내 색상을 '열림'으로 변경
+        SetButtonColor(expandedColor);
         
         // 2. 내 '직접 자식'들만 켠다
-        foreach (UIMenuNode child in directChildren)
+        foreach (GameObject child in directChildren)
         {
-            child.Button.SetActive(true);
+            child.SetActive(true);
         }
     }
 
-
-
     /// <summary>
     /// '닫기' (CollapseOperation)
-    /// (슈도코드의 CollapseOperation - subtree 순회 부분)
     /// </summary>
     private void CollapseOperation()
     {
@@ -102,33 +95,29 @@ public class UIMenuTree : MonoBehaviour
         SetButtonColor(collapsedColor);
 
         // 2. 내 '직접 자식'들을 끈다 (재귀적 닫기 시작)
-        foreach (UIMenuNode child in directChildren)
+        foreach (GameObject child in directChildren)
         {
             CollapseChildRecursively(child);
         }
     }
 
     /// <summary>
-    /// 자식 오브젝트를 재귀적으로 닫습니다.
+    /// 자식 오브젝트를 재귀적으로 닫습니다. (Post-order)
     /// </summary>
-    private void CollapseChildRecursively(UIMenuNode targetObject)
+    private void CollapseChildRecursively(GameObject targetObject)
     {
-        if (targetObject.is_option)
+        // 1. 자식이 UIMenuNode(다른 카테고리)인지 확인
+        UIMenuNode childNode = targetObject.GetComponent<UIMenuNode>();
+        
+        // 2. 만약 자식이 '열려있는' 카테고리 노드였다면,
+        //    그 자식의 '닫기' 함수를 먼저 호출
+        if (childNode != null && childNode.isExpanded)
         {
-            SetActive(false);
-            return;
-        }
-
-        if (!targetObject.is_option && childNode.isExpanded)
-        {
-            foreach (UIMenuNode child : targetObject.directChildren)
-            {
-                childNode.CollapseChildRecursively();
-            }
-            
-            targetObject.SetActive(false);
+            childNode.CollapseOperation(); 
         }
         
+        // 3. 모든 자손들을 다 닫은 후, '나'를 끈다.
+        targetObject.SetActive(false);
     }
 
     /// <summary>

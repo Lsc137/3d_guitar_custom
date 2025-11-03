@@ -19,13 +19,13 @@ MonoBehaviour:
   options:
   - optionName: Dot inlay
     thumbnailIcon: {fileID: 21300000, guid: 97cc51a97a091394f807bf024d3244f4, type: 3}
-    partPrefab: {fileID: 315482892698816267, guid: 7d1d3752953f7774fb9e08a44b9e2216, type: 3}
+    partPrefab: {fileID: 2084444557051891047, guid: e09a987ff42530c47b7e67e94088df2c, type: 3}
     mainChildPath: 
     materialToApply: {fileID: 0}
     dependentChanges: []
   - optionName: Block inlay
     thumbnailIcon: {fileID: 21300000, guid: d4f63ff20c96ad443bb72060f12ca05d, type: 3}
-    partPrefab: {fileID: 2833650485942099450, guid: 3f7814eb8a862c54c80a7dbdf7b71c63, type: 3}
+    partPrefab: {fileID: 5990724898724198473, guid: df4db934190c60942874c125ed3284cf, type: 3}
     mainChildPath: 
     materialToApply: {fileID: 0}
     dependentChanges: []
