@@ -68,7 +68,18 @@ public class CustomizationManager : MonoBehaviour
                 prefabToLoad = jazzBassSetupPrefab;
                 categoriesToLoad = allCategories_JazzBass;
                 break;
-            // ... (PrecisionBass, Strat, Tele 등 나머지 case는 그대로) ...
+            case "PrecisionBass":
+                prefabToLoad = precisionBassSetupPrefab;
+                categoriesToLoad = allCategories_PrecisionBass;
+                break;
+            case "Strat":
+                prefabToLoad = stratSetupPrefab;
+                categoriesToLoad = allCategories_Strat;
+                break;
+            case "Tele":
+                prefabToLoad = teleSetupPrefab;
+                categoriesToLoad = allCategories_Tele;
+                break;
             default:
                 prefabToLoad = jazzBassSetupPrefab;
                 categoriesToLoad = allCategories_JazzBass;
@@ -100,19 +111,42 @@ public class CustomizationManager : MonoBehaviour
 
         }
 
-        // 4. [★핵심 수정★] 아코디언 메뉴 빌드
-        // (기존 currentCategories = ... 및 DisplayCategories(...) 호출 삭제)
-        
         // 4A. 메뉴 초기화
         foreach (Transform child in menuContentParent)
         {
             Destroy(child.gameObject);
         }
         
-        // 4B. 아코디언 메뉴 생성 시작
-        BuildFoldingMenu(categoriesToLoad, menuContentParent, baseCategoryColor);
+        
+        CreateCategoryButtons(categoriesToLoad, menuContentParent, baseCategoryColor);
     }
-/// <summary>
+
+    void CreateCategoryButtons(List<CustomCategory> categories, Transform parent, Color currentColor){
+        if (categories == null) return;
+
+        foreach (CustomCategory category in categories){
+            if (category.nodeType == CategoryNodeType.SubCategoryList)
+            {
+                CreateCategoryButtons(category, this.transform, ?color? )
+            } 
+            else if (cateory.nodeType == CategoryNodeType.OptionsList)
+            {
+                CreateOptionButtons(category, )
+            }
+            
+        }
+
+    }
+
+
+    private void CreateOptionButtons(CustomCategory options, Transform parent, Color currentColor){
+
+    }
+
+    
+
+    /*
+    /// <summary>
     /// 아코디언 메뉴를 재귀적으로 빌드합니다. (최대 3레벨: Cat -> SubCat -> Option)
     /// </summary>
     /// <param name="categories">빌드할 카테고리 리스트</param>
@@ -320,9 +354,9 @@ public class CustomizationManager : MonoBehaviour
             thisToggle.isOn = true;
         });
     }
+    */
 
-
-/// <summary>
+    /// <summary>
     /// UI 버튼이 호출하는 '메인' 함수. 메인 변경과 종속 변경을 모두 지시합니다.
     /// </summary>
     public void ApplyOption(CustomCategory category, CustomOption option)
