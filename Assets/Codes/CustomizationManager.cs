@@ -30,7 +30,7 @@ public class CustomizationManager : MonoBehaviour
     [Tooltip("가장 상위 카테고리(레벨 1)의 기본 색상입니다.")]
     public Color baseCategoryColor = new Color(0.9f, 0.9f, 0.9f, 1f); // 옅은 회색  
     [Tooltip("한 단계 내려갈 때마다 얼마나 밝아질지 (0.0 ~ 1.0)")]
-    public float brightnessStep = 0.16f; // 16%씩 밝아짐
+    public float brightnessStep = 0.20f; // 20%씩 밝아짐
 
     // --- 3. [변경] 슬롯 변수는 private (Start에서 채워짐) ---
 
@@ -410,11 +410,6 @@ public class CustomizationManager : MonoBehaviour
                 {
                     Debug.LogError("종속 자식에서 MeshRenderer를 찾지 못했습니다: " + childTransform.name);
                 }
-                break;
-
-            case CustomizationType.PrefabSwap:
-                // (자식의 프리팹을 교체하는 것은 더 복잡하므로,
-                //  일단 MaterialOnly만 구현합니다.)
                 break;
         }
     }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CustomCategory
   categoryName: Inlay type
   nodeType: 0
-  partToChange: 3
+  partToChange: 4
   actionType: 1
   options:
   - optionName: Dot inlay

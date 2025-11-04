@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CustomCategory
   categoryName: Inlay color
   nodeType: 0
-  partToChange: 3
+  partToChange: 4
   actionType: 0
   options:
   - optionName: Pearl
