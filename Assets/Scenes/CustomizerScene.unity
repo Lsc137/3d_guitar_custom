@@ -1906,28 +1906,28 @@ MonoBehaviour:
   stratSetupPrefab: {fileID: 2158954215983601971, guid: 6aacfd601a90f9d43977bc998aa6e70c, type: 3}
   teleSetupPrefab: {fileID: 8036215853274036326, guid: 971fa9a5d993783489dc8355855d7f2f, type: 3}
   allCategories_JazzBass:
-  - {fileID: 11400000, guid: 3123e9909903649479b177220a2976b7, type: 2}
+  - {fileID: 11400000, guid: 765a96c752341754e95938202374294c, type: 2}
   - {fileID: 11400000, guid: 13ee896b9b042854982c6d624768671a, type: 2}
   - {fileID: 11400000, guid: f91fdb80d98a5b6458224c5e1ad2d444, type: 2}
   - {fileID: 11400000, guid: 477e9fdd2e7079341ac75c7938b7ce99, type: 2}
   - {fileID: 11400000, guid: ab11f9593752e5240a214f4ab193ddf6, type: 2}
   - {fileID: 11400000, guid: 909d07bd41e452b419587dc57df7bb65, type: 2}
   allCategories_PrecisionBass:
-  - {fileID: 11400000, guid: f4107eb981a4bbf48908755b29826633, type: 2}
+  - {fileID: 11400000, guid: 56d14fbd16ff23d47b3e1897334dc3ab, type: 2}
   - {fileID: 11400000, guid: 13ee896b9b042854982c6d624768671a, type: 2}
   - {fileID: 11400000, guid: f91fdb80d98a5b6458224c5e1ad2d444, type: 2}
-  - {fileID: 11400000, guid: e393f215e14b14e40974f20c149199f3, type: 2}
+  - {fileID: 11400000, guid: 638af75940a33d34d8d7cfe3e5bc4865, type: 2}
   - {fileID: 11400000, guid: 75e3d65ec96f9d540ad9e73001fcaec2, type: 2}
   - {fileID: 11400000, guid: 909d07bd41e452b419587dc57df7bb65, type: 2}
   allCategories_Strat:
-  - {fileID: 11400000, guid: b9815f21b415e2044a1a339d87416be8, type: 2}
+  - {fileID: 11400000, guid: 1ee059e4116688d4cacfa83d8eecb546, type: 2}
   - {fileID: 11400000, guid: 13ee896b9b042854982c6d624768671a, type: 2}
   - {fileID: 11400000, guid: f91fdb80d98a5b6458224c5e1ad2d444, type: 2}
   - {fileID: 11400000, guid: e393f215e14b14e40974f20c149199f3, type: 2}
   - {fileID: 11400000, guid: 56e2e54c352aba04fb4bdf6de7e66c98, type: 2}
   - {fileID: 11400000, guid: 909d07bd41e452b419587dc57df7bb65, type: 2}
   allCategories_Tele:
-  - {fileID: 11400000, guid: 9201f45a50e46b64fb590659d9007fae, type: 2}
+  - {fileID: 11400000, guid: bd4bb778f8234e145b6222ef67f99995, type: 2}
   - {fileID: 11400000, guid: 13ee896b9b042854982c6d624768671a, type: 2}
   - {fileID: 11400000, guid: f91fdb80d98a5b6458224c5e1ad2d444, type: 2}
   - {fileID: 11400000, guid: e393f215e14b14e40974f20c149199f3, type: 2}

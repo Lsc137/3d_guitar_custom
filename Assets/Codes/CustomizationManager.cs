@@ -52,7 +52,7 @@ public class CustomizationManager : MonoBehaviour
     void Start()
     {
         // 1. GameManager에서 ID 가져오기 (기존과 동일)
-        string selectedID = "JazzBass"; 
+        string selectedID = "Tele"; 
         if (GameManager.Instance != null)
         {
             selectedID = GameManager.Instance.SelectedGuitarID;
@@ -81,8 +81,17 @@ public class CustomizationManager : MonoBehaviour
                 categoriesToLoad = allCategories_Tele;
                 break;
             default:
-                prefabToLoad = jazzBassSetupPrefab;
-                categoriesToLoad = allCategories_JazzBass;
+                // prefabToLoad = teleSetupPrefab;
+                // categoriesToLoad = allCategories_Tele;
+
+                // prefabToLoad = stratSetupPrefab;
+                // categoriesToLoad = allCategories_Strat;
+
+                prefabToLoad = precisionBassSetupPrefab;
+                categoriesToLoad = allCategories_PrecisionBass;
+
+                // prefabToLoad = jazzBassSetupPrefab;
+                // categoriesToLoad = allCategories_JazzBass;
                 break;
         }
 

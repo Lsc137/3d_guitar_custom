@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70e4f31a26164745af28eb9978fc63b, type: 3}
+  m_Name: Pb_topwood
+  m_EditorClassIdentifier: Assembly-CSharp::CustomCategory
+  categoryName: Top wood
+  nodeType: 0
+  partToChange: 0
+  actionType: 0
+  options:
+  - optionName: Monotone
+    thumbnailIcon: {fileID: 21300000, guid: 2584fb91f8df5044f99e63fb64c5d0f4, type: 3}
+    partPrefab: {fileID: 0}
+    mainChildPath: Main/TopWood_Mesh
+    materialToApply: {fileID: 2100000, guid: bdb41bddbab1b2d40ae836fede3cb7c8, type: 2}
+    dependentChanges: []
+  - optionName: Hard Maple
+    thumbnailIcon: {fileID: 21300000, guid: 51d6aaa8d660fd244b29848fc7575fa3, type: 3}
+    partPrefab: {fileID: 0}
+    mainChildPath: Main/TopWood_Mesh
+    materialToApply: {fileID: 2100000, guid: 5fb9ed864ef3b1540b815febca4c85b4, type: 2}
+    dependentChanges: []
+  - optionName: Flamed maple
+    thumbnailIcon: {fileID: 21300000, guid: 9dae4cd2016b02f439ffe69a87f44a76, type: 3}
+    partPrefab: {fileID: 0}
+    mainChildPath: Main/TopWood_Mesh
+    materialToApply: {fileID: 2100000, guid: 415a53dbc82004b4b86236b72b527e1d, type: 2}
+    dependentChanges: []
+  - optionName: Quilted maple
+    thumbnailIcon: {fileID: 21300000, guid: 60a364c46f020144fbd1980d6f04890f, type: 3}
+    partPrefab: {fileID: 0}
+    mainChildPath: Main/TopWood_Mesh
+    materialToApply: {fileID: 2100000, guid: 2d8d2dbdc6cda0d4bba292cc9b49e507, type: 2}
+    dependentChanges: []
+  - optionName: Birdseye maple
+    thumbnailIcon: {fileID: 21300000, guid: 6dc7451b0f668a546a37ffda94cb14f2, type: 3}
+    partPrefab: {fileID: 0}
+    mainChildPath: Main/TopWood_Mesh
+    materialToApply: {fileID: 2100000, guid: aa4eba587b54c0b449f1c0354b19aad5, type: 2}
+    dependentChanges: []
+  - optionName: Burl
+    thumbnailIcon: {fileID: 21300000, guid: 9e827536f6715d24093be937f7cd7234, type: 3}
+    partPrefab: {fileID: 0}
+    mainChildPath: Main/TopWood_Mesh
+    materialToApply: {fileID: 2100000, guid: 511fbb2a9d05e6341ac271bc1b3dd4de, type: 2}
+    dependentChanges: []
+  subCategories: []

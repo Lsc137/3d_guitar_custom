@@ -2,7 +2,14 @@ using UnityEngine;
 using System.Collections.Generic;
 
 // --- (기존 Enum 선언들) ---
-public enum TargetPart { Body, Neck, Fretboard, Inlay, Pickguard, Skybox, SkyboxRotation, Head }
+public enum TargetPart
+{
+    Body,
+    Neck, HeadShape, Fretboard,
+    Inlay,
+    Pickguard,
+    Skybox, SkyboxRotation
+}
 public enum CustomizationType { MaterialOnly, PrefabSwap, FloatValue }
 
 // ▼▼▼ [핵심 추가] 이 카테고리가 어떤 종류인지 정의 ▼▼▼

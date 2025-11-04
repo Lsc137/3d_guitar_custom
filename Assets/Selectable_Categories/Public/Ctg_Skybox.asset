@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CustomCategory
   categoryName: Lighting
   nodeType: 0
-  partToChange: 5
+  partToChange: 6
   actionType: 0
   options:
   - optionName: Monotone
